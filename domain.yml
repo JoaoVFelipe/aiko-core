@@ -1,34 +1,90 @@
-version: "2.0"
+# Actions
+actions:
+# General actions
+- action_greet_user
+- utter_general_greeting
+- utter_name_greeting
+- utter_good_afternoon
+- utter_good_evening
+- utter_good_morning
+- utter_good_night
+- utter_affirm
+- utter_confirm
+- utter_deny
+- utter_disposition
+# Out of scope actions
+- utter_confusion
+- utter_possibilities
 
+# Entities
+entities:
+# General entities
+- name
+
+# Intents
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+# General intents
+- call
+- greet_general
+- greet_time_of_day
+# Out of scope intents
+- out_of_scope
 
+
+# Responses
 responses:
-  utter_greet:
-  - text: "Hey! How are you?"
+  # General responses
+  utter_affirm:
+  - text: Sim
+  - text: Isso aí
+  - text: Com certeza
+  - text: Afirmativo
+  utter_confirm:
+  - text: Ok
+  - text: Entendido
+  - text: Certo
+  utter_deny:
+  - text: Não
+  - text: Negativo
+  - text: Desculpe, mas não
+  utter_disposition:
+  - text: O que posso fazer por você?
+  - text: Em que posso ajudar?
+  utter_confusion:
+  - text: Hm...
+  - text: Ok...?
+  - text: Me desculpe, não sei o que fazer com este comando ainda...
+  utter_general_greeting:
+  - text: Olá!
+  - text: Oi!
+  - text: Hey!
+  utter_good_afternoon:
+  - text: Boa tarde!
+  utter_good_evening:
+  - text: Boa noite!
+  utter_good_morning:
+  - text: Bom dia!
+  utter_good_night:
+  - text: Boa noite!
+  utter_name_greeting:
+  - text: Olá {name}!
+  - text: Oi {name}!
+  - text: Hey {name}!
+  # Out of scope responses
+  utter_possibilities:
+  - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!\n"
 
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+# Slots
+slots:
+  # General slots
+  time_period:
+    type: unfeaturized
 
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+# Configs
 session_config:
-  session_expiration_time: 60
   carry_over_slots_to_new_session: true
+  session_expiration_time: 60
+
+
+
+
