@@ -20,6 +20,8 @@ actions:
 entities:
 # General entities
 - name
+# Comands entities
+- resource
 
 # Intents
 intents:
@@ -29,6 +31,8 @@ intents:
 - greet_time_of_day
 # Out of scope intents
 - out_of_scope
+# Comands intents
+- open_resource
 
 
 # Responses
@@ -41,12 +45,14 @@ responses:
   - text: Afirmativo
   utter_confirm:
   - text: Ok
-  - text: Entendido
-  - text: Certo
+  - text: Entendido!
+  - text: Certo!
+  - text: Pode deixar!
+  - text: Deixa comigo!
   utter_deny:
-  - text: Não
-  - text: Negativo
-  - text: Desculpe, mas não
+  - text: Não...
+  - text: Negativo...
+  - text: Desculpe, mas não...
   utter_disposition:
   - text: O que posso fazer por você?
   - text: Em que posso ajudar?
