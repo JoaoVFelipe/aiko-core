@@ -37,6 +37,17 @@ class ActionGreetUser(Action):
 
             return [SlotSet("time_period", actual_period)]
 
+
+################################## BASIC COMMANDS ACTIONS ##################################
+class ActionStartResource(Action):
+    """ Start an resource based on the user request """
+    def name(self) -> Text:
+        return "action_start_resource"
+
+    def run(self, dispatcher, tracker, domain) -> List[EventType]:  
+        print('opening', next(tracker.get_latest_entity_values("resource")))
+        return []
+
 ################################## UTILS FUNCTIONS ##################################
 class UtilsTime():
     def get_part_of_day(self, hour):

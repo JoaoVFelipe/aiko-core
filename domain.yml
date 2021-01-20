@@ -12,6 +12,8 @@ actions:
 - utter_confirm
 - utter_deny
 - utter_disposition
+# Comands actions
+- action_start_resource
 # Out of scope actions
 - utter_confusion
 - utter_possibilities
@@ -84,7 +86,14 @@ responses:
 slots:
   # General slots
   time_period:
-    type: unfeaturized
+    type: categorical
+    values:
+      - morning
+      - afternoon
+      - evening
+      - night
+  resource:
+    type: any
 
 # Configs
 session_config:

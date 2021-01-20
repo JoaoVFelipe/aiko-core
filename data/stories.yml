@@ -12,3 +12,10 @@ stories:
   - intent: greet_time_of_day
   - action: action_greet_user
 
+###### BASIC COMANDS ########
+- story: basic open resource
+  steps:
+  - intent: open_resource
+  - action: action_start_resource
+  - slot_was_set:
+      - resource: {"name": "Spotify"}

@@ -12,12 +12,12 @@ pipeline:
   max_ngram: 4
   token_pattern: '(?u)\b\w+\b'
 - name: CRFEntityExtractor
-- name: "DucklingEntityExtractor"
-  url: "http://localhost:8000"
-  dimensions: ["time"]
-  locale: "pt_IE"
-  timezone: "America/Sao_Paulo"
-  timeout : 3
+# - name: "DucklingEntityExtractor"
+#   url: "http://localhost:8000"
+#   dimensions: ["time"]
+#   locale: "pt_IE"
+#   timezone: "America/Sao_Paulo"
+#   timeout : 3
 - name: EntitySynonymMapper
 - name: DIETClassifier
   entity_recognition: false
