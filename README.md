@@ -16,3 +16,8 @@
   ## How to use?
  
    Comming soon...
+
+## Funcionalities
+   * Execute programs, open sites and folders -- In development;
+   * Set alarms and manage commitments -- Future;
+   * Other funcionalities are in discussion.

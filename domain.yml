@@ -14,6 +14,9 @@ actions:
 - utter_disposition
 # Comands actions
 - action_start_resource
+# Opening resource responses
+- utter_opening_resource
+- utter_resource_notfound
 # Out of scope actions
 - utter_confusion
 - utter_possibilities
@@ -35,7 +38,6 @@ intents:
 - out_of_scope
 # Comands intents
 - open_resource
-
 
 # Responses
 responses:
@@ -78,9 +80,17 @@ responses:
   - text: Olá {name}!
   - text: Oi {name}!
   - text: Hey {name}!
+  # Opening resource responses
+  utter_opening_resource:
+  - text: Entendido! Abrindo o seu {resource}!
+  - text: Ok, vou abrir {resource}!
+  - text: Iniciando {resource}!
+  utter_resource_notfound:
+  - text: Me desculpe, mas não encontrei {resource} nos meus registros...
+  - text: Me desculpe, mas ainda não sei o que é {resource}...
   # Out of scope responses
   utter_possibilities:
-  - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!\n"
+  - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
 
 # Slots
 slots:
