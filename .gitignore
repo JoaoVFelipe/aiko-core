@@ -4,6 +4,10 @@
 # Arquivos de models compilados
 models/
 
+#Arquivos dos modelos de treinamento NLU
+#Estes arquivos serão omitidos por questões de privacidade.
+data/
+
 # Arquivos de workspace
 *.code-workspace 
 
