@@ -19,6 +19,9 @@
  
    This applications follows the basic RASA structure. So, to run this project, you'll need to install RASA on your machine. I recommend following the RASA documentation to get started: https://rasa.com/docs/rasa/installation
    
+   Start the Python Virtual enviroment
+   * .\venv\Scripts\activate
+   
    After installing all requirements, you can train the AIKO model by running (this can take a while):
    * rasa train
    
