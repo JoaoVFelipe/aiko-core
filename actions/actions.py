@@ -1,3 +1,5 @@
+import yaml
+import os
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -44,8 +46,35 @@ class ActionStartResource(Action):
     def name(self) -> Text:
         return "action_start_resource"
 
-    def run(self, dispatcher, tracker, domain) -> List[EventType]:  
-        print('opening', next(tracker.get_latest_entity_values("resource")))
+    def run(self, dispatcher, tracker, domain) -> List[EventType]: 
+        found_resource = False
+
+        try:
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            path = os.path.join(dir_path, "resources.yml")
+            resource_name = tracker.get_slot("resource")[0].lower().replace(" ", "_")
+           
+            with open(path, 'r') as file:
+                resource_list = yaml.load(file, Loader=yaml.FullLoader)
+                for resource_type, resources in resource_list.items():
+                    for resource in resources:
+                        if (resource["name"] == resource_name):
+                            found_resource = True
+                            break
+                        for alternate_name in resource['alternative_names']:
+                            if(alternate_name == resource_name):
+                                found_resource = True
+                                break
+                    if found_resource:
+                        break           
+        except:
+            if (resource_name):
+                dispatcher.utter_message(template="utter_resource_notfound", resource=resource_name)
+                return []
+        if found_resource:
+            dispatcher.utter_message(template="utter_opening_resource", resource=resource_name)
+            return []
+        dispatcher.utter_message(template="utter_resource_notfound")
         return []
 
 ################################## UTILS FUNCTIONS ##################################
