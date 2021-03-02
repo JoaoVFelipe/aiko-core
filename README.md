@@ -22,7 +22,7 @@
    Start the Python Virtual enviroment
    * .\venv\Scripts\activate
    
-   After installing all requirements, you can train the AIKO model by running (this can take a while):
+   Access the /aiko-core folder and train the AIKO model by running (this can take a while, but only needs to be done once):
    * rasa train
    
    After trained, you can start the main API with the command:
