@@ -5,7 +5,7 @@
 models/
 
 #Arquivos dos modelos de treinamento NLU
-#Estes arquivos serão omitidos por questões de privacidade.
+#Estes arquivos serão omitidos por questões de privacidade, e possuem um repositório próprio privado.
 data/
 
 # Arquivos de workspace
