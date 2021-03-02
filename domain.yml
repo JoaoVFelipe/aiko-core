@@ -16,28 +16,11 @@ actions:
 - action_start_resource
 # Opening resource responses
 - utter_opening_resource
+- utter_ask_resource_name
 - utter_resource_notfound
 # Out of scope actions
 - utter_confusion
 - utter_possibilities
-
-# Entities
-entities:
-# General entities
-- name
-# Comands entities
-- resource
-
-# Intents
-intents:
-# General intents
-- call
-- greet_general
-- greet_time_of_day
-# Out of scope intents
-- out_of_scope
-# Comands intents
-- open_resource
 
 # Responses
 responses:
@@ -85,12 +68,32 @@ responses:
   - text: Entendido! Abrindo o seu {resource}!
   - text: Ok, vou abrir {resource}!
   - text: Iniciando {resource}!
+  utter_ask_resource_name:
+  - text: O que gostaria de executar?
   utter_resource_notfound:
   - text: Me desculpe, mas não encontrei {resource} nos meus registros...
   - text: Me desculpe, mas ainda não sei o que é {resource}...
   # Out of scope responses
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
+
+# Entities
+entities:
+# General entities
+- name
+# Comands entities
+- resource
+
+# Intents
+intents:
+# General intents
+- call
+- greet_general
+- greet_time_of_day
+# Out of scope intents
+- out_of_scope
+# Comands intents
+- open_resource
 
 # Slots
 slots:
@@ -103,7 +106,7 @@ slots:
       - evening
       - night
   resource:
-    type: any
+    type: list
 
 # Configs
 session_config:
