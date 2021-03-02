@@ -1,79 +1,88 @@
- programs: 
-    - name: spotify
-      alternative_names:
-      type: music_player
+generic:
+  - name: "player_de_musica"
+    alternative_names: ['music_player', 'player']
+    type: music_player
+  - name: "internet"
+    alternative_names: ['browser', 'internet', 'navegador', 'navegador_de_internet']
+    type: browser
 
-    - name: netflix
-      alternative_names:
-      type: video_player
+programs: 
+  - name: spotify
+    alternative_names:
+    type: music_player
 
-    - name: discord
-      alternative_names: 
-      type: chat
-    
-    - name: skype
-      alternative_names: 
-      type: chat
-    
-    - name: teamspeak
-      alternative_names: 
-      type: chat 
-    
-    - name: web_whatsapp
-      alternative_names: 
-      type: chat 
-    
-    - name: chrome
-      alternative_names: 
-      type: browser 
-    
-    - name: league_of_legends
-      alternative_names: 
-      type: game 
-    
-    - name: excel
-      alternative_names: 
-      type: productivity 
-    
-    - name: power_point
-      alternative_names: 
-      type: productivity 
-    
-    - name: word
-      alternative_names: 
-      type: productivity 
-    
-    - name: photoshop
-      alternative_names: 
-      type: productivity 
-    
-    - name: illustrator
-      alternative_names: 
-      type: productivity 
-    
-    - name: visual_sudio_code
-      alternative_names: 
-      type: productivity 
-    
-    - name: pycharm
-      alternative_names: 
-      type: productivity 
-    
-    - name: insomnia
-      alternative_names: 
-      type: productivity 
-    
-    - name: steam
-      alternative_names: 
-      type: store 
-    
-    - name: epic_games_launcher
-      alternative_names: 
-      type: store 
-    
-    - name: utorrent
-      alternative_names: 
-      type: others 
+  - name: netflix
+    alternative_names:
+    type: video_player
+
+  - name: discord
+    alternative_names: 
+    type: chat
+  
+  - name: skype
+    alternative_names: 
+    type: chat
+  
+  - name: teamspeak
+    alternative_names: 
+    type: chat 
+  
+  - name: web_whatsapp
+    alternative_names: 
+    type: chat 
+  
+  - name: chrome
+    alternative_names: 
+    type: browser 
+  
+  - name: league_of_legends
+    alternative_names: 
+    type: game 
+  
+  - name: excel
+    alternative_names: 
+    type: productivity 
+  
+  - name: power_point
+    alternative_names: 
+    type: productivity 
+  
+  - name: word
+    alternative_names: 
+    type: productivity 
+  
+  - name: photoshop
+    alternative_names: 
+    type: productivity 
+  
+  - name: illustrator
+    alternative_names: 
+    type: productivity 
+  
+  - name: visual_sudio_code
+    alternative_names: 
+    type: productivity 
+  
+  - name: pycharm
+    alternative_names: 
+    type: productivity 
+  
+  - name: insomnia
+    alternative_names: 
+    type: productivity 
+  
+  - name: steam
+    alternative_names: 
+    type: store 
+  
+  - name: epic_games_launcher
+    alternative_names: 
+    type: store 
+  
+  - name: utorrent
+    alternative_names: 
+    type: others 
+
 sites: 
   - name: ""
     alternative_names:
@@ -83,5 +92,4 @@ sites:
 directories: 
   - name: ""
     type: ""
-    base_address: "" 
-    alternative_names:
+    alternative_names: ""
