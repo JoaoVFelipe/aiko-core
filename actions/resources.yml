@@ -74,6 +74,10 @@ programs:
   - name: steam
     alternative_names: 
     type: store 
+
+  - name: origin
+    alternative_names: 
+    type: store 
   
   - name: epic_games_launcher
     alternative_names: 

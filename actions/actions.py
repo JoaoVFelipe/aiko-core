@@ -53,7 +53,7 @@ class ActionStartResource(Action):
             dir_path = os.path.dirname(os.path.realpath(__file__))
             path = os.path.join(dir_path, "resources.yml")
             resource_name = tracker.get_slot("resource")[0].lower().replace(" ", "_")
-           
+
             with open(path, 'r') as file:
                 resource_list = yaml.load(file, Loader=yaml.FullLoader)
                 for resource_type, resources in resource_list.items():
@@ -61,21 +61,22 @@ class ActionStartResource(Action):
                         if (resource["name"] == resource_name):
                             found_resource = True
                             break
-                        for alternate_name in resource['alternative_names']:
-                            if(alternate_name == resource_name):
-                                found_resource = True
-                                break
+
+                        if(resource['alternative_names'] != None):
+                            for alternate_name in resource['alternative_names']:
+                                if(alternate_name == resource_name):
+                                    found_resource = True
+                                    break
                     if found_resource:
                         break           
         except:
-            if (resource_name):
-                dispatcher.utter_message(template="utter_resource_notfound", resource=resource_name)
-                return []
+            dispatcher.utter_message(template="utter_resource_notfound")
+            return [SlotSet("last_opened_resource", None), SlotSet("resource", None)]
         if found_resource:
             dispatcher.utter_message(template="utter_opening_resource", resource=resource_name)
-            return []
+            return [SlotSet("last_opened_resource", resource_name), SlotSet("resource", None)]
         dispatcher.utter_message(template="utter_resource_notfound")
-        return []
+        return [SlotSet("last_opened_resource", None), SlotSet("resource", None)]
 
 ################################## UTILS FUNCTIONS ##################################
 class UtilsTime():

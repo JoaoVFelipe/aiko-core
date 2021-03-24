@@ -65,14 +65,16 @@ responses:
   - text: Hey {name}!
   # Opening resource responses
   utter_opening_resource:
-  - text: Entendido! Abrindo o seu {resource}!
-  - text: Ok, vou abrir {resource}!
-  - text: Iniciando {resource}!
+  - text: Entendido! Iniciando procedimentos para abrir {resource}!
+  - text: Ok, trabalhando para abrir {resource}!
+  - text: Comando recebido! Iniciando {resource}!
   utter_ask_resource_name:
   - text: O que gostaria de executar?
   utter_resource_notfound:
-  - text: Me desculpe, mas não encontrei {resource} nos meus registros...
-  - text: Me desculpe, mas ainda não sei o que é {resource}...
+  - text: Acho que ainda não conheço este recurso... me desculpe!
+  - text: Desculpe, mas não consigo executar o que pediu. 
+  - text: Não reconheço o nome deste recurso... tem certeza de que está certo?
+  - text: Ocorreu um erro! Não consegui identificar este recurso ; -;
   # Out of scope responses
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
@@ -107,6 +109,8 @@ slots:
       - night
   resource:
     type: list
+  last_opened_resource:
+    type: any
 
 # Configs
 session_config:
