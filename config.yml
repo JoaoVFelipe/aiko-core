@@ -12,16 +12,16 @@ pipeline:
   max_ngram: 4
   token_pattern: '(?u)\b\w+\b'
 - name: CRFEntityExtractor
-- name: EntitySynonymMapper
+- name: DIETClassifier
+  entity_recognition: False
+  epochs: 100
 - name: DucklingEntityExtractor
   url: "http://duckling.rasa.com:8000"
   dimensions: ["time"]
   locale: "pt_IE"
   timezone: "America/Sao_Paulo"
   timeout : 3
-- name: DIETClassifier
-  entity_recognition: false
-  epochs: 100
+- name: EntitySynonymMapper
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
 policies:

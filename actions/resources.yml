@@ -2,90 +2,231 @@ generic:
   - name: "player_de_musica"
     alternative_names: ['music_player', 'player']
     type: music_player
+
   - name: "internet"
     alternative_names: ['browser', 'internet', 'navegador', 'navegador_de_internet']
     type: browser
 
 programs: 
+  # MUSIC PLAYERS
   - name: spotify
-    alternative_names:
+    alternative_names: []
     type: music_player
 
+  # VIDEO PLAYERS
   - name: netflix
-    alternative_names:
+    alternative_names: []
     type: video_player
 
+  # CHATS AND COMMUNICATION
   - name: discord
-    alternative_names: 
+    alternative_names: []
     type: chat
   
   - name: skype
-    alternative_names: 
+    alternative_names: []
     type: chat
   
   - name: teamspeak
-    alternative_names: 
+    alternative_names: [ts]
     type: chat 
   
-  - name: web_whatsapp
-    alternative_names: 
+  - name: whatsapp
+    alternative_names: []
+    type: chat
+
+  - name: zoom
+    alternative_names: []
     type: chat 
-  
-  - name: chrome
-    alternative_names: 
+
+  # BROWSERS 
+  - name: google_chrome
+    alternative_names: [chrome]
+    type: browser 
+
+  - name: mozilla_firefox
+    alternative_names: [firefox]
+    type: browser 
+
+  - name: microsoft_edge
+    alternative_names: [edge]
     type: browser 
   
+  # GAMES
   - name: league_of_legends
-    alternative_names: 
+    alternative_names: [lol, lolzinho]
     type: game 
+
+  - name: the_elder_scrolls_online
+    alternative_names: []
+    type: game  
   
+  - name: euro_truck_simulator_2
+    alternative_names: []
+    type: game   
+  
+  - name: tom_clancys_rainbow_six_siege
+    alternative_names: [rainbow_six, rainbow_six_siege]
+    type: game  
+
+  - name: call_of_duty_modern_warfare
+    alternative_names: [cod_warzone, warzone, cod_mw]
+    type: game  
+
+  - name: stardew_valley
+    alternative_names: []
+    type: game
+
+  - name: the_crew_2
+    alternative_names: []
+    type: game 
+
+  - name: dungeon_defenders
+    alternative_names: []
+    type: game 
+
+  - name: valhein
+    alternative_names: []
+    type: game 
+
+  - name: playerunknowns_battlegrounds
+    alternative_names: [pubg]
+    type: game 
+
+  - name: playerunknowns_battlegrounds_lite
+    alternative_names: [pubg_lite]
+    type: game
+
+  - name: red_dead_redemption
+    alternative_names: [red_dead]
+    type: game
+
+  - name: red_dead_redemption_2
+    alternative_names: [red_dead_2]
+    type: game
+
+  - name: verdun
+    alternative_names: []
+    type: game
+
+  - name: the_flame_in_the_flood
+    alternative_names: [flame_in_the_flood]
+    type: game
+
+  - name: rocket_league
+    alternative_names: []
+    type: game 
+
+  # PRODUCTIVITY
   - name: excel
-    alternative_names: 
+    alternative_names: []
     type: productivity 
   
   - name: power_point
-    alternative_names: 
+    alternative_names: []
     type: productivity 
   
   - name: word
-    alternative_names: 
+    alternative_names: []
     type: productivity 
   
   - name: photoshop
-    alternative_names: 
+    alternative_names: []
     type: productivity 
   
   - name: illustrator
-    alternative_names: 
+    alternative_names: []
     type: productivity 
   
-  - name: visual_sudio_code
-    alternative_names: 
+  - name: visual_studio_code
+    alternative_names: [vscode]
     type: productivity 
   
   - name: pycharm
-    alternative_names: 
+    alternative_names: []
     type: productivity 
   
   - name: insomnia
-    alternative_names: 
+    alternative_names: []
     type: productivity 
+
+  - name: notepad++
+    alternative_names: []
+    type: productivity   
+
+  - name: unity
+    alternative_names: []
+    type: productivity  
+
+  - name: android_studio
+    alternative_names: []
+    type: productivity 
+
+  - name: gitkraken
+    alternative_names: [git_kraken]
+    type: productivity
   
+  - name: bizagi_modeler
+    alternative_names: [bizagi]
+    type: productivity 
+
+  # STORES
   - name: steam
-    alternative_names: 
+    alternative_names: []
     type: store 
 
   - name: origin
-    alternative_names: 
+    alternative_names: []
     type: store 
+
+  - name: battle.net
+    alternative_names: [battle_net, blizzard, blizzard_launcher]
+    type: store
   
   - name: epic_games_launcher
-    alternative_names: 
+    alternative_names: [epic_games, laucher_epic, epic]
+    type: store
+
+  - name: rockstar_games_launcher
+    alternative_names: [rockstar_games]
+    type: store 
+
+  - name: rockstar_social_club
+    alternative_names: [social_club, rockstar_club]
+    type: store 
+
+  - name: bluestacks
+    alternative_names: []
     type: store 
   
+  # OTHERS
   - name: utorrent
-    alternative_names: 
+    alternative_names: []
     type: others 
+
+  - name: anydesk
+    alternative_names: []
+    type: others
+
+  - name: teamviewer
+    alternative_names: []
+    type: others 
+
+  - name: graph
+    alternative_names: []
+    type: others 
+
+  - name: atube_catcher
+    alternative_names: []
+    type: others
+
+  - name: winrar
+    alternative_names: []
+    type: others
+
+  - name: droidcam
+    alternative_names: []
+    type: others
 
 sites: 
   - name: ""
