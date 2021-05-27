@@ -28,13 +28,13 @@
    After trained, you can start the main API with the command:
    * rasa run -m models --enable-api --cors “*” --debug
    
-   Access the /aiko-core folder and start the action server:
+   Yet in the /aiko-core folder, start the action server:
    * rasa run actions
 
   If everything goes right, you can start making some requests at http://localhost:(port)/webhooks/rest/webhook! 
   it is important to note that this project is in a very early development stage, therefore improvements will still be made in the structure in order to facilitate the execution and tests.
 
 ## Funcionalities
-   * Execute programs, open sites and folders -- In development;
-   * Set alarms and manage commitments -- Future;
+   * Execute programs, open sites and folders -- In training!
+   * Set alarms and manage commitments -- On development;
    * Other funcionalities are in discussion.
