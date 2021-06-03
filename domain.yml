@@ -74,7 +74,7 @@ responses:
   - text: Acho que ainda não conheço este recurso... me desculpe!
   - text: Desculpe, mas não consigo executar o que pediu. 
   - text: Não reconheço o nome deste recurso... tem certeza de que está certo?
-  - text: Ocorreu um erro! Não consegui identificar este recurso ; -;
+  - text: Ocorreu um erro! Não consegui identificar este recurso...
   # Out of scope responses
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
