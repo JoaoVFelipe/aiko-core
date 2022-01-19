@@ -12,12 +12,31 @@ actions:
 - utter_confirm
 - utter_deny
 - utter_disposition
+
+# Validations
+- validate_reminder_form
+
 # Comands actions
 - action_start_resource
+- action_register_event
 # Opening resource responses
 - utter_opening_resource
-- utter_ask_resource_name
 - utter_resource_notfound
+# Register reminders
+- utter_reminder_set
+- utter_ask_reminder_date
+- utter_ask_reminder_time
+- utter_ask_reminder_name
+
+# - utter_confirm_reminder
+
+# Registering events
+# - utter_registered_event
+# - utter_ask_event_name
+# - utter_ask_event_day
+# - utter_ask_event_time
+# - utter_want_to_register_details
+# - utter_ask_event_details
 # Out of scope actions
 - utter_confusion
 - utter_possibilities
@@ -68,13 +87,46 @@ responses:
   - text: Entendido! Iniciando procedimentos para abrir {resource}!
   - text: Ok, trabalhando para abrir {resource}!
   - text: Comando recebido! Iniciando {resource}!
-  utter_ask_resource_name:
-  - text: O que gostaria de executar?
   utter_resource_notfound:
   - text: Acho que ainda não conheço este recurso... me desculpe!
   - text: Desculpe, mas não consigo executar o que pediu. 
   - text: Não reconheço o nome deste recurso... tem certeza de que está certo?
   - text: Ocorreu um erro! Não consegui identificar este recurso...
+
+  utter_reminder_set:
+  - text: Ok, avisarei quando a hora chegar!
+  - text: Prontinho! Vou te lembrar no horário, pode deixar!
+
+  utter_ask_reminder_date:
+  - text: Para qual dia deseja configurar este lembrete?
+
+  utter_ask_reminder_time:
+  - text: Qual o horário?
+
+  utter_ask_reminder_name:
+  - text: Qual nome devo dar a este lembrete?
+
+
+  # utter_confirm_reminder:
+  # - text: Deseja realmente configurar o remindere {reminder_name} para {reminder_date}, as {reminder_time}
+  # - text: Se eu entendi, quer ser avisado as {reminder_time} do dia {reminder_data}, certo?
+
+  # utter_registered_event:
+  # - text: Ok, registrei o evento na agenda!
+  # utter_ask_event_name:
+  # - text: Como devo registrar este evento? 
+  # - text: Qual nome devo dar a este evento na agenda?
+  # utter_ask_event_day:
+  # - text: Que dia este evento ocorrerá?
+  # - text: Quando este evento ocorrerá?
+  # utter_ask_event_time:
+  # - text: A que horas esse evento ocorrerá?
+  # utter_want_to_register_details:
+  # - text: Gostaria de registrar alguma descrição do evento?
+  # utter_ask_event_details:
+  # - text: Qual a descrição do evento?
+  # - text: Gostaria de adicionar alguma nota a este evento?
+
   # Out of scope responses
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
@@ -83,8 +135,21 @@ responses:
 entities:
 # General entities
 - name
+- time
 # Comands entities
+### Opening resources entities
 - resource
+
+### Reminders setting
+- reminder_date
+- reminder_time
+- reminder_name
+
+### Registering events entities  - FUTURE IMPLEMENTATION
+# - event_name
+# - event_time
+# - event_day
+# - event_details
 
 # Intents
 intents:
@@ -92,10 +157,18 @@ intents:
 - call
 - greet_general
 - greet_time_of_day
+- inform
 # Out of scope intents
 - out_of_scope
 # Comands intents
+### Open Resource Intent
 - open_resource
+### Reminders setting
+- set_reminder
+### Register event intent - FUTURE IMPLEMENTATION
+# - register_event
+# - detail_event_name
+# - detail_event_time
 
 # Slots
 slots:
@@ -107,10 +180,36 @@ slots:
       - afternoon
       - evening
       - night
+    influence_conversation: false
   resource:
     type: list
+    influence_conversation: false
   last_opened_resource:
     type: any
+  time:
+    type: any
+    influence_conversation: false
+  reminder_date:
+    type: any
+    influence_conversation: false
+  reminder_time:
+    type: any
+    influence_conversation: false
+  reminder_name:
+    type: any
+    influence_conversation: false
+
+forms:
+  reminder_form:
+    ignored_intents: 
+    - out_of_scope
+    required_slots:
+        reminder_date:
+          - type: from_text
+        reminder_time:
+          - type: from_text
+        reminder_name:
+          - type: from_text
 
 # Configs
 session_config:

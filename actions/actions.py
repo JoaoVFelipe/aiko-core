@@ -1,9 +1,10 @@
 import yaml
 import os
-from typing import Any, Text, Dict, List
-from rasa_sdk import Action, Tracker
+from typing import Any, Text, Dict, List, Optional
+from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import (SlotSet, EventType)
+from rasa_sdk.types import DomainDict
 
 from datetime import datetime
 
@@ -77,6 +78,21 @@ class ActionStartResource(Action):
             return [SlotSet("last_opened_resource", resource_name), SlotSet("resource", None)]
         dispatcher.utter_message(template="utter_resource_notfound")
         return [SlotSet("last_opened_resource", None), SlotSet("resource", None)]
+
+
+################################# FORM VALIDATIONS ##################################
+class ValidateReminderForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_reminder_form"
+
+    async def extract_reminder_date(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        print("entrou na acao")
+        if(tracker.get_latest_entity_values("time")):
+            ent = next(tracker.get_latest_entity_values("time"), None)
+            print('entidade tempo aqui', ent)
+        return None
 
 ################################## UTILS FUNCTIONS ##################################
 class UtilsTime():
