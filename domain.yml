@@ -131,26 +131,6 @@ responses:
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
 
-# Entities
-entities:
-# General entities
-- name
-- time
-# Comands entities
-### Opening resources entities
-- resource
-
-### Reminders setting
-- reminder_date
-- reminder_time
-- reminder_name
-
-### Registering events entities  - FUTURE IMPLEMENTATION
-# - event_name
-# - event_time
-# - event_day
-# - event_details
-
 # Intents
 intents:
 # General intents
@@ -169,6 +149,20 @@ intents:
 # - register_event
 # - detail_event_name
 # - detail_event_time
+
+# Entities
+entities:
+# General entities
+- time
+# Comands entities
+### Opening resources entities
+- resource
+
+### Registering events entities  - FUTURE IMPLEMENTATION
+# - event_name
+# - event_time
+# - event_day
+# - event_details
 
 # Slots
 slots:
@@ -191,12 +185,15 @@ slots:
     influence_conversation: false
   reminder_date:
     type: any
+    auto_fill: false
     influence_conversation: false
   reminder_time:
     type: any
+    auto_fill: false
     influence_conversation: false
   reminder_name:
     type: any
+    auto_fill: false
     influence_conversation: false
 
 forms:
@@ -204,10 +201,6 @@ forms:
     ignored_intents: 
     - out_of_scope
     required_slots:
-        reminder_date:
-          - type: from_text
-        reminder_time:
-          - type: from_text
         reminder_name:
           - type: from_text
 
