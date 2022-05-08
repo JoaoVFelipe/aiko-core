@@ -8,6 +8,9 @@ models/
 #Estes arquivos serão omitidos por questões de privacidade, e possuem um repositório próprio privado.
 data/
 
+## Cache do rasa
+.rasa/
+
 # Arquivos de workspace
 *.code-workspace 
 

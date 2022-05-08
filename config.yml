@@ -1,5 +1,6 @@
 # Configuration for Rasa NLU.
 # Language configuration
+recipe: default.v1
 language: pt
 
 pipeline:

@@ -42,7 +42,6 @@ class ActionGreetUser(Action):
 
             return [SlotSet("time_period", actual_period)]
 
-
 ################################## BASIC COMMANDS ACTIONS ##################################
 class ActionStartResource(Action):
     """ Start an resource based on the user request """
@@ -80,73 +79,6 @@ class ActionStartResource(Action):
             return [SlotSet("last_opened_resource", resource_name), SlotSet("resource", None)]
         dispatcher.utter_message(template="utter_resource_notfound")
         return [SlotSet("last_opened_resource", None), SlotSet("resource", None)]
-
-
-################################# FORM VALIDATIONS ##################################
-class ValidateReminderForm(FormValidationAction):
-    def name(self) -> Text:
-        return "validate_reminder_form"
-
-    async def required_slots(
-        self,
-        slots_mapped_in_domain: List[Text],
-        dispatcher: "CollectingDispatcher",
-        tracker: "Tracker",
-        domain: "DomainDict",
-    ) -> Optional[List[Text]]:
-        required_slots =  ["reminder_date", "reminder_time"] + slots_mapped_in_domain
-        return required_slots
-
-    async def extract_reminder_date(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        print("entrou extract reminder date")
-        ent = None
-        rasa_utils = UtilsRasa()
-        last_utter_action = rasa_utils.get_last_utter_action(tracker)
-       
-        if (len(tracker.latest_message['entities']) and (not last_utter_action == 'utter_ask_reminder_time')):
-            for entity in tracker.latest_message['entities']:
-                if(entity['entity'] == 'time'):
-                    ent = entity
-        
-        if not ent == None:
-            grain = ent['additional_info']['grain']
-            date_time_obj = parser.parse(ent['value'])
-
-            if(grain == 'hour'):
-                date = date_time_obj.strftime("%d-%m-%Y")
-                time = date_time_obj.strftime("%H:%M:%S")
-                SlotSet("reminder_time", time)
-                return {"reminder_date": date}
-            elif(grain == 'day'):
-                date = date_time_obj.strftime("%d-%m-%Y")
-                return {"reminder_date": date}
-
-
-    async def extract_reminder_time(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    ) -> Dict[Text, Any]:
-        ent = None
-        rasa_utils = UtilsRasa()
-        last_utter_action = rasa_utils.get_last_utter_action(tracker)
-        
-        if((last_utter_action == 'utter_ask_reminder_time') and (len(tracker.latest_message['entities']))):
-            print("entrou extract reminder time")
-            for entity in tracker.latest_message['entities']:
-                if(entity['entity'] == 'time'):
-                    ent = entity
-            
-            if not ent == None:
-                grain = ent['additional_info']['grain']
-                date_time_obj = datetime.strptime(ent['value'], "%Y-%m-%dT%H:%M:%S.%f%z")
-
-                if(grain == 'hour'):
-                    time = date_time_obj.strftime("%H:%M:%S")
-                    return {"reminder_time": time}
-                elif(grain == 'day'):
-                    return {"reminder_time": None}
-
 
 ################################## UTILS FUNCTIONS ##################################
 class UtilsTime():
