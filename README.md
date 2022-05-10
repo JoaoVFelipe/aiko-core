@@ -11,8 +11,8 @@
   
    The technologies used for the creation of CORE so far, and necessary for the execution of the project were:
   
-   * [Python 3.2.6] (http://python.org/)
-   * [Rasa Open Source Core 2.2] (https://rasa.com/docs/)
+   * [Python 3.9.12] (http://python.org/)
+   * [Rasa Open Source Core 3.1.0] (https://rasa.com/docs/)
    * [Duckling Parser] (https://duckling.wit.ai/)
   
   ## How to use?
@@ -36,5 +36,6 @@
 
 ## Funcionalities
    * Execute programs, open sites and folders -- In training!
-   * Set alarms and manage commitments -- On development;
+   * Set alarms and manage commitments -- In development;
+   * Control lights and home smart equipaments -- In planning; 
    * Other funcionalities are in discussion.
