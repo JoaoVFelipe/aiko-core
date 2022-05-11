@@ -2,10 +2,12 @@ version: "3.1"
 
 intents:
 - call
+- inform
 - greet_general
 - greet_time_of_day
 - out_of_scope
 - open_resource
+- ask_set_reminder
 
 actions:
 - action_greet_user
@@ -20,15 +22,17 @@ actions:
 - utter_deny
 - utter_disposition
 - action_start_resource
-- action_register_event
 - utter_opening_resource
 - utter_resource_notfound
+- action_set_reminder
+- utter_ask_reminder_form_reminder_name
 - utter_confusion
 - utter_possibilities
 
 entities:
   - time
   - resource
+  - reminder_name
 
 slots:
   time_period:
@@ -41,17 +45,24 @@ slots:
     influence_conversation: false
     mappings:
     - type: custom
-  resource:
-    type: list
-    influence_conversation: false
+  last_opened_resource:
+    type: text
+    mappings:
+    - type: custom
+  reminder_name:
+    type: text
     mappings:
     - type: from_entity
-      entity: resource
-  last_opened_resource:
+      entity: reminder_name
+  reminder_info:
     type: any
     mappings:
     - type: custom
 
+forms:
+  reminder_form:
+    required_slots:
+        - reminder_name
 
 responses:
   utter_affirm:
@@ -100,6 +111,10 @@ responses:
   - text: Desculpe, mas não consigo executar o que pediu. 
   - text: Não reconheço o nome deste recurso... tem certeza de que está certo?
   - text: Ocorreu um erro! Não consegui identificar este recurso...
+  utter_ask_reminder_form_reminder_name:
+  - text: Como devo chamar esse lembrete?
+  - text: Como quer identificar esse lembrete?
+  - text: Dê um nome para esse lembrete por favor!
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
 

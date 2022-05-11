@@ -73,12 +73,47 @@ class ActionStartResource(Action):
                         break           
         except:
             dispatcher.utter_message(template="utter_resource_notfound")
-            return [SlotSet("last_opened_resource", None), SlotSet("resource", None)]
+            return
         if found_resource:
             dispatcher.utter_message(template="utter_opening_resource", resource=resource_name)
-            return [SlotSet("last_opened_resource", resource_name), SlotSet("resource", None)]
+            return [SlotSet("last_opened_resource", resource_name)]
         dispatcher.utter_message(template="utter_resource_notfound")
-        return [SlotSet("last_opened_resource", None), SlotSet("resource", None)]
+        return
+
+class ActionSetReminder(Action):
+    """ Set an basic reminder based on the user request"""
+    def name(self) -> Text:
+        return "action_set_reminder"
+
+    def run(self, dispatcher, tracker, domain) -> List[EventType]: 
+        time = None
+        reminder_date = None 
+        reminder_time = None
+        reminder_info = {}
+
+        # Gets event description set by the form
+        reminder_name = tracker.get_slot("reminder_name")
+
+        # Gets event time sent on the last message
+        if len(tracker.latest_message['entities']):
+            for entity in tracker.latest_message['entities']:
+                if(entity['entity'] == 'time'):
+                    time = entity
+        
+        if not time == None:
+            grain = time['additional_info']['grain']
+            date_time_obj = parser.parse(time['value'])
+
+            if(grain == 'hour'):
+                reminder_date = date_time_obj.strftime("%d-%m-%Y")
+                reminder_time = date_time_obj.strftime("%H:%M:%S")
+            elif(grain == 'day'):
+                reminder_date = date_time_obj.strftime("%d-%m-%Y")
+
+        reminder_info = {
+            'date': reminder_date, 'time': reminder_time, 'name': reminder_name
+        }
+        return [SlotSet("reminder_info", reminder_info)]
 
 ################################## UTILS FUNCTIONS ##################################
 class UtilsTime():
