@@ -80,19 +80,19 @@ class ActionStartResource(Action):
         dispatcher.utter_message(template="utter_resource_notfound")
         return
 
-class ActionSetReminder(Action):
-    """ Set an basic reminder based on the user request"""
+class ValidateReminderForm(FormValidationAction):
     def name(self) -> Text:
-        return "action_set_reminder"
+        return "validate_reminder_form"
 
-    def run(self, dispatcher, tracker, domain) -> List[EventType]: 
-        time = None
-        reminder_date = None 
-        reminder_time = None
-        reminder_info = {}
-
-        # Gets event description set by the form
-        reminder_name = tracker.get_slot("reminder_name")
+    @staticmethod
+    def validate_reminder_time(
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        reminder_time = {}
+        print("entrou aqui na validação")
 
         # Gets event time sent on the last message
         if len(tracker.latest_message['entities']):
@@ -100,6 +100,8 @@ class ActionSetReminder(Action):
                 if(entity['entity'] == 'time'):
                     time = entity
         
+        print("setou time", time)
+
         if not time == None:
             grain = time['additional_info']['grain']
             date_time_obj = parser.parse(time['value'])
@@ -109,11 +111,28 @@ class ActionSetReminder(Action):
                 reminder_time = date_time_obj.strftime("%H:%M:%S")
             elif(grain == 'day'):
                 reminder_date = date_time_obj.strftime("%d-%m-%Y")
+            
+            reminder_time = {'date': reminder_date, 'time': reminder_time, 'grain': grain}
+            print("setou time", reminder_time)
+
+            return {"reminder_time": reminder_time}
+        return {"reminder_time": None}
+        
+class ActionSetReminder(Action):
+    """ Set an basic reminder based on the user request"""
+    def name(self) -> Text:
+        return "action_set_reminder"
+
+    def run(self, dispatcher, tracker, domain) -> List[EventType]: 
+        reminder_time = tracker.get_slot("reminder_time")
+        reminder_name = tracker.get_slot("reminder_name")
+
+        print("time", reminder_time, reminder_name)
 
         reminder_info = {
-            'date': reminder_date, 'time': reminder_time, 'name': reminder_name
+            'date': reminder_time['date'], 'time': reminder_time['time'], 'name': reminder_name
         }
-        return [SlotSet("reminder_info", reminder_info)]
+        return [SlotSet("reminder_info", reminder_info), SlotSet("reminder_name", None), SlotSet("reminder_time", None)]
 
 ################################## UTILS FUNCTIONS ##################################
 class UtilsTime():

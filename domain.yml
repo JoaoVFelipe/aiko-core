@@ -25,7 +25,9 @@ actions:
 - utter_opening_resource
 - utter_resource_notfound
 - action_set_reminder
+- validate_reminder_form
 - utter_ask_reminder_form_reminder_name
+- utter_ask_reminder_form_reminder_time
 - utter_confusion
 - utter_possibilities
 
@@ -54,6 +56,11 @@ slots:
     mappings:
     - type: from_entity
       entity: reminder_name
+  reminder_time:
+    type: any
+    mappings:
+    - type: from_entity
+      entity: time
   reminder_info:
     type: any
     mappings:
@@ -63,6 +70,7 @@ forms:
   reminder_form:
     required_slots:
         - reminder_name
+        - reminder_time
 
 responses:
   utter_affirm:
@@ -115,6 +123,15 @@ responses:
   - text: Como devo chamar esse lembrete?
   - text: Como quer identificar esse lembrete?
   - text: Dê um nome para esse lembrete por favor!
+  utter_ask_reminder_form_reminder_time:
+  - text: Para quando é este evento?
+  - text: Quando devo te avisar desse evento?
+  - condition:
+        - type: slot
+          name: reminder_name
+          value: true
+    text: Quando devo te avisar de {reminder_name}?
+      
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
 
