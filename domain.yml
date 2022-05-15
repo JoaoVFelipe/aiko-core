@@ -8,6 +8,8 @@ intents:
 - out_of_scope
 - open_resource
 - ask_set_reminder
+- ask_turn_lights_on
+- ask_turn_lights_off
 
 actions:
 - action_greet_user
@@ -28,6 +30,7 @@ actions:
 - validate_reminder_form
 - utter_ask_reminder_form_reminder_name
 - utter_ask_reminder_form_reminder_time
+- action_execute_home_action
 - utter_confusion
 - utter_possibilities
 
@@ -35,7 +38,7 @@ entities:
   - time
   - resource
   - reminder_name
-
+  - home_room
 slots:
   time_period:
     type: categorical
@@ -62,6 +65,10 @@ slots:
     - type: from_entity
       entity: time
   reminder_info:
+    type: any
+    mappings:
+    - type: custom
+  home_action_info:
     type: any
     mappings:
     - type: custom

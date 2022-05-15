@@ -134,6 +134,16 @@ class ActionSetReminder(Action):
         }
         return [SlotSet("reminder_info", reminder_info), SlotSet("reminder_name", None), SlotSet("reminder_time", None)]
 
+################################## SMART HOME ACTIONS ##################################
+class ActionExecuteSmartHomeAction(Action):
+    """Execute a generic action related to home automation"""
+    def name(self) -> Text:
+        return "action_execute_home_action"
+
+    def run(self, dispatcher, tracker, domain) -> List[EventType]: 
+        ## Get the last intent, and return the action and room based on it.
+        return
+
 ################################## UTILS FUNCTIONS ##################################
 class UtilsTime():
     def get_part_of_day(self, hour):
