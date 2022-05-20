@@ -2,10 +2,7 @@
 
 ## AIKO-core
 <div display="inline-block">
-  <span>
-    <img src="https://github.com/JoaoVFelipe/JoaoVFelipe/raw/main/assets/aiko_idle.gif" align="right" width="230" height="230"/>
-  </span>
-  <span>
+ <span>
    The CORE repository contains the necessary information for the assistant to understand the user's intentions.
    Thus, all platforms that implement a visualization for AIKO must access this service to obtain the answers and actions to be delivered according to each input provided by the user (acknowledgment of intentions).
     <br />
