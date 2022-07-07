@@ -8,6 +8,8 @@ intents:
 - out_of_scope
 - open_resource
 - ask_set_reminder
+- ask_set_alarm
+- ask_set_timer
 - ask_turn_lights_on
 - ask_turn_lights_off
 
@@ -27,9 +29,14 @@ actions:
 - utter_opening_resource
 - utter_resource_notfound
 - action_set_reminder
+- action_set_reminder_type
+- action_set_alarm_type
+- action_set_timer_type
 - validate_reminder_form
+- validate_alarm_form
 - utter_ask_reminder_form_reminder_name
 - utter_ask_reminder_form_reminder_time
+- utter_ask_alarm_form_reminder_time
 - action_execute_home_action
 - utter_confusion
 - utter_possibilities
@@ -39,6 +46,7 @@ entities:
   - resource
   - reminder_name
   - home_room
+
 slots:
   time_period:
     type: categorical
@@ -50,9 +58,23 @@ slots:
     influence_conversation: false
     mappings:
     - type: custom
+  resource:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: resource
   last_opened_resource:
     type: text
     mappings:
+    - type: custom
+  reminder_type:
+    type: categorical
+    values:
+      - alarm
+      - reminder
+      - timer
+    influence_conversation: false
+    mappings: 
     - type: custom
   reminder_name:
     type: text
@@ -78,6 +100,10 @@ forms:
     required_slots:
         - reminder_name
         - reminder_time
+  alarm_form:
+    required_slots:
+        - reminder_time
+
 
 responses:
   utter_affirm:
@@ -138,7 +164,9 @@ responses:
           name: reminder_name
           value: true
     text: Quando devo te avisar de {reminder_name}?
-      
+  utter_ask_alarm_form_reminder_time:
+  - text: Qualo horário?
+  - text: Para qual horário deseja configurar esse alarme?
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
 
