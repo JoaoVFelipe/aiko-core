@@ -1,6 +1,5 @@
 from datetime import datetime
 
-
 def get_part_of_day(hour):
     return (
         "morning" if 5 <= hour <= 11
@@ -15,6 +14,17 @@ def get_part_of_day(hour):
 def get_actual_period():
     h = datetime.now().hour
     return get_part_of_day(h)
+
+def get_entity_by_name(tracker, name):
+    if len(tracker.latest_message['entities']):
+        found_entity = None
+        for entity in tracker.latest_message['entities']:
+            if(entity['entity'] == name):
+                found_entity = entity
+                break
+        return found_entity
+    else: 
+        return None
 
 def get_last_utter_action(tracker):
     print("tracker", tracker)

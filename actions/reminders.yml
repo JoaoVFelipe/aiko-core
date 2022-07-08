@@ -1,0 +1,11 @@
+reminder:
+  - alternative_names: ['lembrete', 'evento', 'agenda']
+    type: reminder
+
+alarm:
+  - alternative_names: ['alarme', 'despertador', 'desperte']
+    type: alarm
+
+timer:
+  - alternative_names: ['timer', 'contagem']
+    type: timer

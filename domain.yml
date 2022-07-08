@@ -40,10 +40,12 @@ actions:
 - action_execute_home_action
 - utter_confusion
 - utter_possibilities
+- utter_problem_found
 
 entities:
   - time
   - resource
+  - reminder_type
   - reminder_name
   - home_room
 
@@ -73,7 +75,7 @@ slots:
       - alarm
       - reminder
       - timer
-    influence_conversation: false
+    influence_conversation: true
     mappings: 
     - type: custom
   reminder_name:
@@ -103,7 +105,6 @@ forms:
   alarm_form:
     required_slots:
         - reminder_time
-
 
 responses:
   utter_affirm:
@@ -165,10 +166,13 @@ responses:
           value: true
     text: Quando devo te avisar de {reminder_name}?
   utter_ask_alarm_form_reminder_time:
-  - text: Qualo horário?
+  - text: Qual o horário?
   - text: Para qual horário deseja configurar esse alarme?
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
+  - text: "Perdão, mas por enquanto só sei abrir programas e configurar alarmes... Porque não tenta?"
+  utter_problem_found:
+  - text: "Desculpe, mas encontrei um problema enquanto tentava fazer isso..."
 
 # Configs
 session_config:

@@ -165,7 +165,7 @@ class ActionSetReminder(Action):
         reminder_name = tracker.get_slot("reminder_name")
         reminder_type = tracker.get_slot("reminder_type")
 
-        print("time", reminder_time, reminder_name)
+        print("time", reminder_time, reminder_name, reminder_type)
 
         reminder_info = {
             'date': reminder_time['date'], 'time': reminder_time['time'], 'name': reminder_name, 'type': reminder_type 
@@ -174,28 +174,42 @@ class ActionSetReminder(Action):
 
 
 class ActionSetReminderType(Action):
-    """ Set reminder type as reminder"""
+    """ Set the reminder type"""
     def name(self) -> Text:
         return "action_set_reminder_type"
 
     def run(self, dispatcher, tracker, domain) -> List[EventType]: 
-        return [SlotSet("reminder_type", 'reminder')]
+        print("setando reminder type")
 
-class ActionSetAlarmType(Action):
-    """ Set reminder type as alarm """
-    def name(self) -> Text:
-        return "action_set_alarm_type"
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        path = os.path.join(dir_path, "reminders.yml")
 
-    def run(self, dispatcher, tracker, domain) -> List[EventType]: 
-        return [SlotSet("reminder_type", 'alarm')]
+        defined_reminder_type = utils.get_entity_by_name(tracker, 'reminder_type')
+        defined_reminder_name = tracker.get_slot("reminder_name")
 
-class ActionSetTimerType(Action):
-    """ Set reminder type as timer"""
-    def name(self) -> Text:
-        return "action_set_timer_type"
+        categorized_reminder_type = None
 
-    def run(self, dispatcher, tracker, domain) -> List[EventType]: 
-        return [SlotSet("reminder_type", 'timer')]
+        if(defined_reminder_type):
+            with open(path, 'r') as file:
+                reminders_type_list = yaml.load(file, Loader=yaml.FullLoader)
+                print("REMINDERS TYPE", defined_reminder_type)
+                for reminder_type, type_info in reminders_type_list.items():
+                    print("REMINDERS TYPE 2", reminder_type, type_info)
+                    if (type_info[0]["alternative_names"] == defined_reminder_type):
+                        categorized_reminder_type = reminder_type
+                        break
+                        
+        if categorized_reminder_type:
+            print("setou", categorized_reminder_type)
+            return [SlotSet("reminder_type", categorized_reminder_type)]   
+        else:
+            if defined_reminder_name:
+                print("setou: reminder")
+                return [SlotSet("reminder_type", 'reminder')]
+            else:
+                print("setou: alarm")
+                return [SlotSet("reminder_type", 'alarm')]
+
 ################################## SMART HOME ACTIONS ##################################
 class ActionExecuteSmartHomeAction(Action):
     """Execute a generic action related to home automation"""
