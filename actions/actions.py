@@ -161,6 +161,8 @@ class ActionSetReminder(Action):
         return "action_set_reminder"
 
     def run(self, dispatcher, tracker, domain) -> List[EventType]: 
+        print("chamou o set reminder")
+
         reminder_time = tracker.get_slot("reminder_time")
         reminder_name = tracker.get_slot("reminder_name")
         reminder_type = tracker.get_slot("reminder_type")
@@ -170,6 +172,8 @@ class ActionSetReminder(Action):
         reminder_info = {
             'date': reminder_time['date'], 'time': reminder_time['time'], 'name': reminder_name, 'type': reminder_type 
         }
+
+        print("reminder info set", reminder_info)
         return [SlotSet("reminder_info", reminder_info), SlotSet("reminder_name", None), SlotSet("reminder_time", None)]
 
 
@@ -184,20 +188,27 @@ class ActionSetReminderType(Action):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         path = os.path.join(dir_path, "reminders.yml")
 
-        defined_reminder_type = utils.get_entity_by_name(tracker, 'reminder_type')
+        defined_reminder_type = None
+        defined_reminder_entity = utils.get_entity_by_name(tracker, 'reminder_type')
         defined_reminder_name = tracker.get_slot("reminder_name")
+        
+        if(defined_reminder_entity):
+            defined_reminder_type = defined_reminder_entity['value']
+
+        print("REMINDERS TYPE", defined_reminder_type)
 
         categorized_reminder_type = None
 
         if(defined_reminder_type):
             with open(path, 'r') as file:
                 reminders_type_list = yaml.load(file, Loader=yaml.FullLoader)
-                print("REMINDERS TYPE", defined_reminder_type)
                 for reminder_type, type_info in reminders_type_list.items():
-                    print("REMINDERS TYPE 2", reminder_type, type_info)
-                    if (type_info[0]["alternative_names"] == defined_reminder_type):
-                        categorized_reminder_type = reminder_type
-                        break
+                    for name in type_info[0]["alternative_names"]:
+                        print("REMINDERS TYPE 2", name, defined_reminder_type)
+                        if (name == defined_reminder_type):
+                            categorized_reminder_type = reminder_type
+                            print("SETOU O CATEGORIZED", categorized_reminder_type, reminder_type)
+                            break
                         
         if categorized_reminder_type:
             print("setou", categorized_reminder_type)

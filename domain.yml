@@ -37,6 +37,7 @@ actions:
 - utter_ask_reminder_form_reminder_name
 - utter_ask_reminder_form_reminder_time
 - utter_ask_alarm_form_reminder_time
+- utter_setting_reminder
 - action_execute_home_action
 - utter_confusion
 - utter_possibilities
@@ -168,6 +169,23 @@ responses:
   utter_ask_alarm_form_reminder_time:
   - text: Qual o horário?
   - text: Para qual horário deseja configurar esse alarme?
+  utter_setting_reminder:
+  - text: Ok, estou configurando o lembrete para você, um momento.
+  - condition:
+        - type: slot
+          name: reminder_type
+          value: alarm
+    text: Ok! Um momento enquanto estou configurando o despertador para você.
+  - condition:
+        - type: slot
+          name: reminder_type
+          value: reminder
+    text: Entendido! Aguarde enquanto configuro lembrete em sua agenda.
+  - condition:
+        - type: slot
+          name: reminder_type
+          value: timer
+    text: Ok, vou configurar o timer! Um momento, por favor.
   utter_possibilities:
   - text: "Não tenho muitas habilidades no momento, mas elas estão em desenvolvimento!"
   - text: "Perdão, mas por enquanto só sei abrir programas e configurar alarmes... Porque não tenta?"
