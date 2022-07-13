@@ -1,7 +1,7 @@
 import yaml
 import os
-from dateutil import parser
 from . import utils
+from . import service
 
 from typing import Any, Text, Dict, List, Optional
 from rasa_sdk import Action, Tracker, FormValidationAction
@@ -83,77 +83,39 @@ class ValidateReminderForm(FormValidationAction):
         return "validate_reminder_form"
 
     @staticmethod
-    def validate_reminder_time(
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
+    async def extract_reminder_time(
+        dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        reminder_time = {}
-        print("entrou aqui na validação")
-
-        # Gets event time sent on the last message
-        if len(tracker.latest_message['entities']):
-            for entity in tracker.latest_message['entities']:
-                if(entity['entity'] == 'time'):
-                    time = entity
-        
-        print("setou time", time)
-
-        if not time == None:
-            grain = time['additional_info']['grain']
-            date_time_obj = parser.parse(time['value'])
-
-            if(grain == 'hour'):
-                reminder_date = date_time_obj.strftime("%d-%m-%Y")
-                reminder_time = date_time_obj.strftime("%H:%M:%S")
-            elif(grain == 'day'):
-                reminder_date = date_time_obj.strftime("%d-%m-%Y")
-            
-            reminder_time = {'date': reminder_date, 'time': reminder_time, 'grain': grain}
-            print("setou time", reminder_time)
-
-            return {"reminder_time": reminder_time}
-        return {"reminder_time": None}
+        reminder_time = None
+        time_info = utils.extract_time_entity(tracker=tracker);
+        return {"reminder_time": time_info}
 
 class ValidateAlarmForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_alarm_form"
 
     @staticmethod
-    def validate_reminder_time(
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
+    async def extract_reminder_time(
+        dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        reminder_time = {}
-        print("entrou aqui na validação")
+        reminder_time = None
+        time_info = utils.extract_time_entity(tracker=tracker);
+        return {"reminder_time": time_info}
 
-        # Gets event time sent on the last message
-        if len(tracker.latest_message['entities']):
-            for entity in tracker.latest_message['entities']:
-                if(entity['entity'] == 'time'):
-                    time = entity
-        
-        print("setou time", time)
+class ValidateTimerForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_timer_form"
 
-        if not time == None:
-            grain = time['additional_info']['grain']
-            date_time_obj = parser.parse(time['value'])
+    @staticmethod
+    async def extract_reminder_duration(
+        dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        reminder_duration = None
+        time_info = utils.get_entity_by_name(tracker=tracker, name='duration');
 
-            if(grain == 'hour'):
-                reminder_date = date_time_obj.strftime("%d-%m-%Y")
-                reminder_time = date_time_obj.strftime("%H:%M:%S")
-            elif(grain == 'day'):
-                reminder_date = date_time_obj.strftime("%d-%m-%Y")
-            
-            reminder_time = {'date': reminder_date, 'time': reminder_time, 'grain': grain}
-            print("setou time", reminder_time)
-
-            return {"reminder_time": reminder_time}
-        return {"reminder_time": None}
-        
+        if time_info:
+            second_duration = time_info['additional_info']['normalized']['value']
+            return {"reminder_duration": second_duration}
 
 class ActionSetReminder(Action):
     """ Set an basic reminder based on the user request"""
@@ -166,15 +128,29 @@ class ActionSetReminder(Action):
         reminder_time = tracker.get_slot("reminder_time")
         reminder_name = tracker.get_slot("reminder_name")
         reminder_type = tracker.get_slot("reminder_type")
+        reminder_basetime = utils.get_actual_datetime()
+        reminder_duration = tracker.get_slot("reminder_duration")
+        
 
         print("time", reminder_time, reminder_name, reminder_type)
 
         reminder_info = {
-            'date': reminder_time['date'], 'time': reminder_time['time'], 'name': reminder_name, 'type': reminder_type 
+            'name': reminder_name, 
+            'type': reminder_type, 
+            'basetime': reminder_basetime, 
+            'duration': reminder_duration
         }
 
+        if(reminder_time):
+            reminder_info['date'] = reminder_time['date'];
+            reminder_info['time'] = reminder_time['time'];
+
         print("reminder info set", reminder_info)
-        return [SlotSet("reminder_info", reminder_info), SlotSet("reminder_name", None), SlotSet("reminder_time", None)]
+        return [SlotSet("reminder_info", reminder_info), 
+                SlotSet("reminder_name", None), 
+                SlotSet("reminder_time", None), 
+                SlotSet("reminder_duration", None), 
+                SlotSet("reminder_type", None)]
 
 
 class ActionSetReminderType(Action):

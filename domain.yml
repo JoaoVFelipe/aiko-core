@@ -34,9 +34,11 @@ actions:
 - action_set_timer_type
 - validate_reminder_form
 - validate_alarm_form
+- validate_timer_form
 - utter_ask_reminder_form_reminder_name
 - utter_ask_reminder_form_reminder_time
 - utter_ask_alarm_form_reminder_time
+- utter_ask_timer_form_reminder_duration
 - utter_setting_reminder
 - action_execute_home_action
 - utter_confusion
@@ -87,8 +89,11 @@ slots:
   reminder_time:
     type: any
     mappings:
-    - type: from_entity
-      entity: time
+    - type: custom
+  reminder_duration:
+    type: any
+    mappings:
+    - type: custom
   reminder_info:
     type: any
     mappings:
@@ -106,6 +111,9 @@ forms:
   alarm_form:
     required_slots:
         - reminder_time
+  timer_form:
+    required_slots:
+        - reminder_duration
 
 responses:
   utter_affirm:
@@ -169,6 +177,9 @@ responses:
   utter_ask_alarm_form_reminder_time:
   - text: Qual o horário?
   - text: Para qual horário deseja configurar esse alarme?
+  utter_ask_timer_form_reminder_duration:
+  - text: De quanto tempo?
+  - text: Quanto tempo deseja para esse timer?
   utter_setting_reminder:
   - text: Ok, estou configurando o lembrete para você, um momento.
   - condition:

@@ -17,8 +17,8 @@ pipeline:
   entity_recognition: False
   epochs: 100
 - name: DucklingEntityExtractor
-  url: "http://duckling.rasa.com:8000"
-  dimensions: ["time"]
+  url: "http://localhost:8000"
+  dimensions: ["time", "duration"]
   locale: "pt_IE"
   timezone: "America/Sao_Paulo"
   timeout : 3
