@@ -35,6 +35,9 @@
    After trained, you can start the main API with the command:
    * rasa run -m models --enable-api --cors “*” --debug
    
+   Start the Duckling parser docker container
+   * docker run -p 8000:8000 rasa/duckling
+  
    Yet in the /aiko-core folder, start the action server:
    * rasa run actions
 
@@ -42,7 +45,7 @@
   it is important to note that this project is in a very early development stage, therefore improvements will still be made in the structure in order to facilitate the execution and tests.
 
 ## Funcionalities
-   * Execute programs, open sites and folders -- In training!
-   * Set alarms and manage commitments -- In development;
-   * Control lights and home smart equipaments -- In planning; 
+   * Execute programs, open sites and folders -- Training!
+   * Set alarms and manage commitments -- Training!;
+   * Control lights and home smart equipaments -- Planning; 
    * Other funcionalities are in discussion.
